@@ -1,0 +1,149 @@
+<!-- IMRAN KHAN | 23304096  -->
+<!-- ASSIGNMENT 4 WEBPAGE   -->
+<!--    assignment4.html    -->
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>[CISC3130] Lyrical Frequency</title>
+	</head>
+
+	<body>
+		<h1><header>Lyrical Frequencies</header></h1>
+		<main>
+			<img src="./DataVisuals/Cloud1.svg" id = "randomImg">
+			<script type="text/javascript">
+				window.onload = chooseRandomPic;
+				var cloudSet = new Array("./DataVisuals/Cloud1.svg", "./DataVisuals/Cloud2.svg"
+											"./DataVisuals/Cloud3.svg", "./DataVisuals/Cloud4.svg","./DataVisuals/Cloud5.svg");
+				function chooseRandomPic() {
+					var randomNumber = Math.floor(Math.random()*cloudSet.length);
+					document.getElementById("randomImg").src = cloudSet[randomNumber];
+				}
+			</script>
+			
+			<hr>
+			<article>
+			<h2>About this Page</h2>
+			<p>This was a simple word frequency application used primarily to find the word frequency of song lyrics made with Java. The application provides five sample songs which are found under the project directory /Songs folder. You can add or delete any song in this library and add more songs of your own. Add as many as you like! All songs lyrics must be saved as a .txt file, and the user can only select from one song to generate a respective frequency which is saved as "LyricWordFrequencies.txt" on the main project directory.<br><br> The word cloud above is a pregenerated SVG of a word cloud which was created using Jason Davies Word Cloud Layout Generator. To try it yourself or learn more of his word cloud data visual, <a href="https://www.jasondavies.com/wordcloud/">visit his page</a> . I plan to integrate my own interactive data visual soon using D3.js and a modified version of my app to get the frequency of the a random song using either the Genius or The MusixMatch API and having a backend cache of non-copyrighted songs be shown once the site reaches maximum request limit. I may also possibly provide the user a choice of entering their own song if they want. </p>
+			</article>
+
+			<hr>
+			<article>
+				<h2>The Technical Stuff:</h2>
+				<p>
+					To Download The Song/Word Frequency Java App:
+				</p>
+				<ol>
+					<li> Clone or Download the Program Files:</li>
+					<ol>
+						<li>
+							If you have git installed, run the following under a specified directory you want the program files installed under:
+							<br>
+								<blockquote>
+									<code>git clone https://github.com/InfiniZest/bc-cisc3130-ty2-fall2019-assignment3-InfiniZest.git
+									</code>
+								</blockquote>
+						</li>
+						<li>
+							If you don't have git installed, visit the the Github <a href = "https://github.com/InfiniZest/bc-cisc3130-ty2-fall2019-assignment3-InfiniZest">page</a> to install it directly from the website.<br> 
+								<dd></dt><i>On the website, select the "Clone or download" button and then select, "Download ZIP". Finally, save the program files under a specified directory of choice.</i>
+								</dd>
+						</li>
+						<br>
+						<li>
+						Make sure you have installed the latest JRE 
+							<a href = "http://java.com/download">here.</a>	
+						</li>
+					</ol>
+				</ol>
+
+				<h3>To Build and Run the Program:</h3>
+				<ol>
+					<li>
+						Open up a command line interface (CLI) and change directories to where you've downloaded the program files, make sure you're in the directory.
+					</li>
+					<br>
+					<li>
+						Perfrom the following action to build the program:
+						<blockquote>
+							<code>javac LyricWordFrequenciesApp.java</code>
+						</blockquote>
+					</li>
+					<li>
+						Perform the following action to run the program:
+							<blockquote><code>java LyricWordFrequenciesApp</code></blockquote>
+					</li>
+				</ol>
+
+				<section>
+					<h3>Some Important API (Note, javadocs not available at the moment):</h3>
+					<p><b>&emsp;LyricWordFrequenciesApp API:</b></p>
+						<blockquote><i>
+							This class's only function is to have the user select one song-'.txt file'-from a list of songs the user has provided within the /Songs/ directory under the project's main directory, and performs the logic to output the selected song lyrical frequency which is outputted as a SelectedTrackFreqOutput.txt file found under the project's main directory.
+						</i></blockquote>
+					<b>&emsp;&emsp;Method Details:</b>	
+					<p><code>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;main(String[] args):</code></p>
+					<blockquote>
+						This is where the main method lies, where the program begins. The method starts off by creating an instance of the File class where it's reference folder points to the File object where the Songs directory is located. What follows is a File[] array called filesList and this is where it stores a list of all files by invoking the File's, folder.listFiles() method. This returns a File[] array with abstract pathnames denoting each of the files in the directory. The method then creates an instance of Hashtable which can only allow Integer and Song classes and is referenced as songList. songList is used to put the a key, Integer, and a Song object (the value of the hashtable) that will automatically do the frequency logic for that selected song. The key is used to help the user navigate which song he/she wants to get a specific frequency output of. The keys and values are set via a for loop which iterates over the fileList array. Inside that loop a check is made to only include .txt files and are listed in order against that delimiter. Thus completes the linear data structure of the program, HashTable songlist. The user will finally be outputed a selection songs to choose from and must select a certain key or Integer the goes along the range of the list. If this isn't followed, a java.lang.NullPointerException is thown at runtime if the user doesn't choose an input key within the list range, or a java.util.InputMismatchException if the input is not a number. If a valid key is chosen, a reference is created named selectedSong for the Song object stored within the selected key of songList and accessed using the HashTable's get(key) method. The main method ends by executing the getWordFrequency() method from the Song's reference selectedSong.	
+					</blockquote>	
+
+					<p><b>&emsp;Song API:</b></p>			
+						<blockquote><i>
+							This class stores and finds the frequency of a Song's Lyrics. Note that search() was not properly encapsulated. It should've been a private method as it's a private utility method for the Song's contructor. Note also that the Song's constructor already finds the word frequency by default. The user has the ability to choose whether or not they want it printed via a .txt file named, "SelectedTackFreqOutput.txt", through the getWordFrequency method. I will plan to add more methods to manipulate and visualize song data in a future update. In addition I will plan to modify the search() so that it is better encapsulated as well more abstract offering multi-functionality if a user wanted to search for a specific word frequency or what lines the word was located under.
+						</i></blockquote>
+						<b>&emsp;&emsp;Constructor Details:</b>	
+							<p><code>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;Song(File songName)</code></p>
+							<blockquote>
+								The constructor instantiates the class variables and then creates an instance of Scanner called songLyricsIn. songLyricsIn in will read through the File passed to this class instance and will format punctuation obstructing the word. It'll then create a WordFrequency object referenced to wordFreq for every word read through. Next, the constructor will set a ListIterator object to the iterator reference using the search utility method which should've been private. Then there are conditional statements that check if the ListIterator, iterator is not empty. If it isn't empty (if search() found a word that matches what it already has in the list) it'll use the increment method form WordFrequency to increment that WordFrequency object in that position of the iterator. If iterator is empty it adds the word songLyricsIn to orderedWordList which is a LinkedList. orderedWordList is the finalized version of the list where each word has been checked to be unique, and since wordFreq is a reference shared by the entire class, if the iterator wasn't empty, the increment() method will effect wordFreq for both iterator or orderedWordList, practically any variable that uses wordFreq and/or manipulates its object.
+							</blockquote>
+							<b>&emsp;&emsp;Method Details:</b>	
+							<p><code>
+								&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;
+								public static &lt;T extends Comparable&lt;? super T&gt;&gt; ListIterator&lt;T&gt; search(LinkedList&lt;T&gt; ordList, T target): 
+							</code></p>
+							<blockquote>
+								<em>(*DO NOT USE WITH INSTANCE OF SONG!!*)</em> 
+								Utility method of the Song constructor, musn't be used elsewhere. It is used to search through orderedWordList(ordList and is converted to be another ListIterator) iter and return iter if it finds a matching word and null if it doesn't.   
+							</blockquote>
+							<p><code>
+								&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;public void getWordFrequency() throws IOException:
+							</code>
+							<blockquote>
+								This simply prints the entire orderedWordList to a txt file called SelectedTrackFreqOutput and formats it with the toString() method from the WordFrequency class.
+							</blockquote>
+
+					<p><b>&emsp;WordFrequency API:</b></p>
+						<blockquote><i>
+							This class is where much of the logic is done to find word frequency. This works specifically well with the Song class search() because it uses that data to determine whether to increment the selected word frequency for each word in a certain song. This class also implements the Comparable interface which overrides its compareTo method to specifically compare different frequency instances. 
+						</i></blockquote>
+						<b>&emsp;&emsp;Constructor Details:</b>
+							<p><code>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;WordFrequency(String word):</code></p>
+							<blockquote>
+								Construtor sets a new word from a song's lyrics with the String word and a frequency of 1.
+							</blockquote>
+						<b>&emsp;&emsp;Method Details:</b>
+							<p><code>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;public int compareTo(WordFrequency item):</code></p>
+							<blockquote>
+								Compares current instance to item. It returns either a negative integer, zero, or a positive integer is this WordFrequency instance is less than, equal to, or greater than item.
+							</blockquote>
+							<p><code>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;public boolean equals(Object item):</code></p>
+							<blockquote>
+								hecks if the word of current instance is equal to item.word (word from anywhere else from the song lyrics).
+							</blockquote>
+							<p><code>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;public void increment():</code></p>
+							<blockquote>
+								Increments current instance (word) frequence.
+							</blockquote>
+							<p><code>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;public String toString():</code></p>		
+							<blockquote>
+								Formats the word and frequency variable to a String, "'frequency': 'word'".
+							</blockquote>
+				</section>
+
+			</article>
+		</main>	
+	</body>
+
+</html>
